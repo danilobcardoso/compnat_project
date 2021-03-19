@@ -23,9 +23,11 @@ def load_previous_state(layer, previous_state, i):
         if bias_key in previous_state:
             ps_bias = previous_state[bias_key]
             layer.conv.bias.data.copy_(ps_bias)
+            layer.conv.bias.requires_grad = False
         if weight_key in previous_state:
             ps_weight = previous_state[weight_key].detach().clone()
             layer.conv.weight.data.copy_(ps_weight)
+            layer.conv.weight.requires_grad = False
 
 
 class EvolutionaryNet(torch.nn.Module):
