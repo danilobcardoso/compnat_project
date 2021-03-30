@@ -13,14 +13,12 @@ import matplotlib
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.animation import FuncAnimation
-from IPython.display import HTML
-from IPython.display import display
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 from scipy import stats
 from math import pi
 from numpy import inf
-import imageio
+
 import sklearn
 from copy import deepcopy
 
@@ -56,6 +54,7 @@ for phase in range(num_phase):
         bests_models.append(best_model)
         print(best_fitness)
 
+
     bests_fitness = np.array(bests_fitness)
     best_phase_fitness = bests_fitness[bests_fitness.argmax()]
     best_phase_genome = bests_genomes[bests_fitness.argmax()]
@@ -70,12 +69,15 @@ for phase in range(num_phase):
     next_generation = deepcopy(next_phase_population)
 
 
-best_overall_fitness = np.array(overall_fitness)
-best_overall_fitness = overall_fitness[best_overall_fitness.argmax()]
-best_overall_genome = overall_genomes[best_overall_fitness.argmax()]
-best_overall_model = overall_models[best_overall_fitness.argmax()]
+best_overall_fitness_idx = np.array(overall_fitness).argmax()
+best_overall_fitness = overall_fitness[best_overall_fitness_idx]
+best_overall_genome = overall_genomes[best_overall_fitness_idx]
+best_overall_model = overall_models[best_overall_fitness_idx]
+print('-------------relatorio ----------------')
+#print(overall_fitness)
+#print(overall_genomes)
 
+print('---------------final----------------')
 print(best_overall_fitness)
 print(best_overall_genome)
 torch.save(best_overall_model.state_dict(), 'model_to_train.pth')
-
